@@ -1,0 +1,4 @@
+.multiLineContainer {
+ display: flex;
+ flex-direction: column;
+}
