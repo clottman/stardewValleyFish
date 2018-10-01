@@ -1,0 +1,55 @@
+{
+  "//1": "describes your app and its dependencies",
+  "//2": "https://docs.npmjs.com/files/package.json",
+  "//3": "updating this file will download and update your packages",
+  "name": "react-babel",
+  "version": "0.0.1",
+  "description": "A boilerplate for getting a web application off the ground using React and Babel for JSX.",
+  "main": "server.js",
+  "scripts": {
+    "start": "rimraf ./public && webpack && babel-register server"
+  },
+  "dependencies": {
+    "express": "^4.15.3",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-select": "^2.0.0",
+    "underscore": "^1.9.1"
+  },
+  "devDependencies": {
+    "babel-loader": "^7.0.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.5.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "babel-register-cli": "^4.0.0",
+    "css-loader": "^0.27.3",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "html-webpack-plugin": "*",
+    "rimraf": "^2.6.1",
+    "webpack": "^2.5.0",
+    "webpack-dev-server": "^2.5.0",
+    "style-loader": "^0.16.1"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "react",
+      "stage-2"
+    ]
+  },
+  "engines": {
+    "node": "8.1.x"
+  },
+  "repository": {
+    "url": "https://glitch.com/edit/#!/react-babel"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express",
+    "react"
+  ]
+}

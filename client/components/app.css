@@ -1,0 +1,16 @@
+.name {
+ color: red;
+}
+.fishTable, .fishTable th, .fishTable td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.fishTable td, .fishTable th {
+   min-width: 140px; 
+}
+
+.multiSelect {
+  width:50%;
+  display: inline-block;
+}
