@@ -1,13 +1,9 @@
-# React/Babel/Webpack Boilerplate
+# Where it came from
 
-Hello friends! This project is set up and ready to go with React, webpack, and Babel. It will take care of fun stuff like supporting the latest and greatest ECMAScript features, compiling your JSX to JavaScript, and more.
-
-You can require CSS files in your components and everything will work as expected.
+Hello friends! This project was created from a Glitch template that includes React, webpack, and Babel. The rest was created by me, [@clottman](https://github.com/clottman).
 
 ## Getting Off the Ground
 
-The root of the project is in `client/index.js`. You can require other files from here. webpack will rebuild your project whenever you make a change. So, there is no need to refresh.
+The root of the project is in `client/index.js`. All it does is render the main React component, found in app.js. 
 
-Your server also supports the latest and greatest versions of the JavaScript programming language. If you'd prefer not to run it through Babel, then you can go ahead and change `babel-register` back to `node` in your `package.json`.
-
-Other than that, all batteries are included and you're ready to go!
+Data can be found in data/fish.js. Data was sourced from https://stardewvalleywiki.com/Fish and re-formatted by hand. 
