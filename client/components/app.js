@@ -15,6 +15,7 @@ export default class App extends React.Component {
             selectedLocations: [],
             selectedSeasons: [],
             selectedIsRaining: false,
+            sortColumn: '',
         };
         const that = this;
         that.allLocations = [];
@@ -35,6 +36,8 @@ export default class App extends React.Component {
         this.handleLocationChange = this.handleLocationChange.bind(this);
         this.handleSeasonChange = this.handleSeasonChange.bind(this);
         this.handleRainingChange = this.handleRainingChange.bind(this);
+        this.sortByName = this.sortByName.bind(this);
+        this.sortByLocation = this.sortByLocation.bind(this);
     }
 
     handleLocationChange(selectedLocations) {
@@ -93,6 +96,18 @@ export default class App extends React.Component {
             return { value: option, label: option };
         });
     }
+  
+  sortByName() {
+   this.setState({
+     sortColumn: 'name',
+   });
+  }
+  
+  sortByLocation() {
+    this.setState({
+      sortColumn: 'location',
+    });
+  }
 
     render() {
         const that = this;
@@ -103,6 +118,7 @@ export default class App extends React.Component {
             const matchingRain = that.anyRain(fish.weather) || (that.state.selectedIsRaining && _.contains(fish.weather, 'Rain')) || (!that.state.selectedIsRaining && !_.contains(fish.weather, 'Rain'));
             return matchingLocation && matchingSeason && matchingRain;
         });
+      const sortedFishToShow = _.sortBy(fishToShow, this.state.sortColumn).map(fish => this.getFishRow(fish));
         return (<div>
             <h1>Hello, Stardew Valley!</h1>
             <p>Ever get tired of trying to figure out where you can find good fish on a given day in Stardew Valley? Try this tool!</p>
@@ -136,16 +152,16 @@ export default class App extends React.Component {
                 </thead>
                 <tbody>
                       <tr>
-                        <th>Name</th>
+                        <th><button onClick={this.sortByName}>Name</button></th>
                         <th>Base Price</th>
-                        <th>Locations</th>
+                        <th><button onClick={this.sortByLocation}>Locations</button></th>
                         <th>Times (24h)</th>
                         <th>Length Range</th>
                         <th>Weather</th>
                         <th>Base XP</th>
                         <th>Used for</th>
                       </tr>
-                      {fishToShow.map(fish => this.getFishRow(fish))}
+                      {sortedFishToShow}
                 </tbody>
             </table>
         </div>);
