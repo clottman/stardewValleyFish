@@ -30,7 +30,7 @@ const TimeSpan = function (props) {
   } else if (props.startTime == null) {
      return <span>Anytime</span>;    
  }
-  return <span>{props.startTime} - {props.endTime}</span>;
+  return <span>{startTimeFormatter(props.startTime)} - {endTimeFormatter(props.endTime)}</span>;
 }
 
 export default TimeSpan;

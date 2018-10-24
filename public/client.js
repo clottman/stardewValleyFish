@@ -11888,7 +11888,8 @@ var App = function (_React$Component) {
             allFish: _fish2.default,
             selectedLocations: [],
             selectedSeasons: [],
-            selectedIsRaining: false
+            selectedIsRaining: false,
+            sortColumn: ''
         };
         var that = _this;
         that.allLocations = [];
@@ -11907,6 +11908,8 @@ var App = function (_React$Component) {
         _this.handleLocationChange = _this.handleLocationChange.bind(_this);
         _this.handleSeasonChange = _this.handleSeasonChange.bind(_this);
         _this.handleRainingChange = _this.handleRainingChange.bind(_this);
+        _this.sortByName = _this.sortByName.bind(_this);
+        _this.sortByLocation = _this.sortByLocation.bind(_this);
         return _this;
     }
 
@@ -12021,17 +12024,34 @@ var App = function (_React$Component) {
             });
         }
     }, {
+        key: 'sortByName',
+        value: function sortByName() {
+            this.setState({
+                sortColumn: 'name'
+            });
+        }
+    }, {
+        key: 'sortByLocation',
+        value: function sortByLocation() {
+            this.setState({
+                sortColumn: 'location'
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
 
             var that = this;
             var fishToShow = _underscore2.default.filter(this.state.allFish, function (fish, index) {
-                var matchingLocation = that.state.selectedLocations.length == 0 || _underscore2.default.intersection(fish.location, _underscore2.default.pluck(that.state.selectedLocations, 'value')).length != 0;
-                var matchingSeason = that.state.selectedSeasons.length == 0 || _underscore2.default.intersection(fish.season, _underscore2.default.pluck(that.state.selectedSeasons, 'value')).length != 0;
+                var matchingLocation = that.state.selectedLocations.length == 0 || fish.location.length > 0 && _underscore2.default.intersection(fish.location, _underscore2.default.pluck(that.state.selectedLocations, 'value')).length != 0;
+                var matchingSeason = that.state.selectedSeasons.length == 0 || Array.isArray(fish.season) && fish.season.length == 0 || _underscore2.default.intersection(fish.season, _underscore2.default.pluck(that.state.selectedSeasons, 'value')).length != 0;
                 var matchingIsRaining = void 0;
                 var matchingRain = that.anyRain(fish.weather) || that.state.selectedIsRaining && _underscore2.default.contains(fish.weather, 'Rain') || !that.state.selectedIsRaining && !_underscore2.default.contains(fish.weather, 'Rain');
                 return matchingLocation && matchingSeason && matchingRain;
+            });
+            var sortedFishToShow = _underscore2.default.sortBy(fishToShow, this.state.sortColumn).map(function (fish) {
+                return _this2.getFishRow(fish);
             });
             return _react2.default.createElement(
                 'div',
@@ -12096,7 +12116,11 @@ var App = function (_React$Component) {
                             _react2.default.createElement(
                                 'th',
                                 null,
-                                'Name'
+                                _react2.default.createElement(
+                                    'button',
+                                    { onClick: this.sortByName },
+                                    'Name'
+                                )
                             ),
                             _react2.default.createElement(
                                 'th',
@@ -12106,7 +12130,11 @@ var App = function (_React$Component) {
                             _react2.default.createElement(
                                 'th',
                                 null,
-                                'Locations'
+                                _react2.default.createElement(
+                                    'button',
+                                    { onClick: this.sortByLocation },
+                                    'Locations'
+                                )
                             ),
                             _react2.default.createElement(
                                 'th',
@@ -12134,9 +12162,7 @@ var App = function (_React$Component) {
                                 'Used for'
                             )
                         ),
-                        fishToShow.map(function (fish) {
-                            return _this2.getFishRow(fish);
-                        })
+                        sortedFishToShow
                     )
                 )
             );
@@ -12964,9 +12990,9 @@ var TimeSpan = function TimeSpan(props) {
   return _react2.default.createElement(
     'span',
     null,
-    props.startTime,
+    startTimeFormatter(props.startTime),
     ' - ',
-    props.endTime
+    endTimeFormatter(props.endTime)
   );
 };
 
