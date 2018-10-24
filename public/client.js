@@ -12027,8 +12027,8 @@ var App = function (_React$Component) {
 
             var that = this;
             var fishToShow = _underscore2.default.filter(this.state.allFish, function (fish, index) {
-                var matchingLocation = that.state.selectedLocations.length == 0 || _underscore2.default.intersection(fish.location, _underscore2.default.pluck(that.state.selectedLocations, 'value')).length != 0;
-                var matchingSeason = that.state.selectedSeasons.length == 0 || _underscore2.default.intersection(fish.season, _underscore2.default.pluck(that.state.selectedSeasons, 'value')).length != 0;
+                var matchingLocation = that.state.selectedLocations.length == 0 || fish.location.length > 0 && _underscore2.default.intersection(fish.location, _underscore2.default.pluck(that.state.selectedLocations, 'value')).length != 0;
+                var matchingSeason = that.state.selectedSeasons.length == 0 || Array.isArray(fish.season) && fish.season.length == 0 || _underscore2.default.intersection(fish.season, _underscore2.default.pluck(that.state.selectedSeasons, 'value')).length != 0;
                 var matchingIsRaining = void 0;
                 var matchingRain = that.anyRain(fish.weather) || that.state.selectedIsRaining && _underscore2.default.contains(fish.weather, 'Rain') || !that.state.selectedIsRaining && !_underscore2.default.contains(fish.weather, 'Rain');
                 return matchingLocation && matchingSeason && matchingRain;
@@ -12964,9 +12964,9 @@ var TimeSpan = function TimeSpan(props) {
   return _react2.default.createElement(
     'span',
     null,
-    props.startTime,
+    startTimeFormatter(props.startTime),
     ' - ',
-    props.endTime
+    endTimeFormatter(props.endTime)
   );
 };
 

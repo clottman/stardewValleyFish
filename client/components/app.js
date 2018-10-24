@@ -97,8 +97,8 @@ export default class App extends React.Component {
     render() {
         const that = this;
         const fishToShow = _.filter(this.state.allFish, function (fish, index) {
-            const matchingLocation = that.state.selectedLocations.length == 0 || _.intersection(fish.location, _.pluck(that.state.selectedLocations, 'value')).length != 0;
-            const matchingSeason = that.state.selectedSeasons.length == 0 || _.intersection(fish.season, _.pluck(that.state.selectedSeasons, 'value')).length != 0;
+            const matchingLocation = that.state.selectedLocations.length == 0 || fish.location.length > 0 && _.intersection(fish.location, _.pluck(that.state.selectedLocations, 'value')).length != 0;
+            const matchingSeason = that.state.selectedSeasons.length == 0 || (Array.isArray(fish.season) && fish.season.length == 0) || _.intersection(fish.season, _.pluck(that.state.selectedSeasons, 'value')).length != 0;
             let matchingIsRaining;
             const matchingRain = that.anyRain(fish.weather) || (that.state.selectedIsRaining && _.contains(fish.weather, 'Rain')) || (!that.state.selectedIsRaining && !_.contains(fish.weather, 'Rain'));
             return matchingLocation && matchingSeason && matchingRain;
